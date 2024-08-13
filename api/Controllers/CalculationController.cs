@@ -13,13 +13,15 @@ public class CalculationController : ControllerBase
     private readonly ApplicationDBContext _context;
     private readonly ICalculationRepository _calculationRepo;
     private readonly IMathOperationService _mathOperationService;
+    private readonly IExpressionsCalculateService _calculateService;
 
     public CalculationController(ApplicationDBContext context, ICalculationRepository calculationRepo, 
-        IMathOperationService mathOperationService)
+        IMathOperationService mathOperationService, IExpressionsCalculateService calculateService)
     {
         _context = context;
         _calculationRepo = calculationRepo;
         _mathOperationService = mathOperationService;
+        _calculateService = calculateService;
     }
 
     [HttpGet]
@@ -59,6 +61,12 @@ public class CalculationController : ControllerBase
     public IActionResult Root([FromQuery] ValuesIncoming values)
     {
         return Ok(_mathOperationService.Root(values));
+    }
+
+    [HttpGet]
+    public IActionResult ExpressionCalculate([FromQuery] string expression ) 
+    { 
+        return Ok(_calculateService.Evaluate(expression));
     }
 
     [HttpGet]

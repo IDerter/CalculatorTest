@@ -24,6 +24,7 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddScoped<ICalculationRepository, CalculationRepository>();
 builder.Services.AddScoped<IMathOperationService, MathOperationService>();
+builder.Services.AddScoped<IExpressionsCalculateService, ExpressionsCalculateService>();
 builder.Services.AddScoped<ExceptionFilter>();
 
 builder.Services.AddDbContext<ApplicationDBContext>(options => {
